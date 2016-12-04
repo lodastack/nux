@@ -29,7 +29,7 @@ func SocketStatSummary() (m map[string]uint64, err error) {
 		if strings.HasPrefix(line, "sockets: used") {
 			m["sockets.used"], _ = strconv.ParseUint(s[2], 10, 64)
 		} else {
-			m["sockets.tcp.inuse"], _ = strconv.ParseUint(s[2], 10, 64)
+			m["tcp.inuse"], _ = strconv.ParseUint(s[2], 10, 64)
 			m["tcp.timewait"], _ = strconv.ParseUint(s[6], 10, 64)
 			break
 		}
