@@ -83,7 +83,7 @@ func CurrentProcStat() (*ProcStat, error) {
 
 func parseLine(line []byte, ps *ProcStat) {
 	fields := strings.Fields(string(line))
-	if len(fields) < 2 {
+	if len(fields) < 3 {
 		return
 	}
 
