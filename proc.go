@@ -197,16 +197,19 @@ func readTcp() map[uint64]bool {
 	scanner := bufio.NewScanner(f)
 	scanner.Scan()
 	for scanner.Scan() {
-		s := strings.Fields(scanner.Text())
-		if s[3] != "01" { //only established
+		b := scanner.Bytes()
+		if len(b) != 149 || b[34] != 48 || b[35] != 49 { //only established
 			continue
 		}
-		inode, err := strconv.ParseUint(s[9], 10, 64)
+		start := 91
+		end := start
+		for end = start; b[end] != 32; end++ {
+		}
+		inode, err := strconv.ParseUint(string(b[start:end]), 10, 64)
 		if err != nil {
 			continue
 		}
 		res[inode] = true
-
 	}
 	return res
 }
