@@ -74,9 +74,9 @@ func Procs(cmdlines map[string]string) (ps []*Proc, err error) {
 		ps = append(ps, &p)
 	}
 
-	tcpInodes := readTcp()
+	//tcpInodes := readTcp()
 	for _, p := range ps {
-		p.TcpEstab = tcpEstablishCount(tcpInodes, p.Pid)
+		//p.TcpEstab = tcpEstablishCount(tcpInodes, p.Pid)
 		p.RBytes, p.WBytes = readIO(p.Pid)
 		p.FdCount = readProcFd(p.Pid)
 	}
