@@ -12,14 +12,14 @@ import (
 	"github.com/toolkits/file"
 )
 
-// return: [][$fs_spec, $fs_file, $fs_vfstype]
-func ListMountPoint() ([][3]string, error) {
+// return: [][$fs_spec, $fs_file, $fs_vfstype, $fs_rw]
+func ListMountPoint() ([][4]string, error) {
 	contents, err := ioutil.ReadFile("/proc/mounts")
 	if err != nil {
 		return nil, err
 	}
 
-	ret := make([][3]string, 0)
+	ret := make([][4]string, 0)
 
 	reader := bufio.NewReader(bytes.NewBuffer(contents))
 	for {
@@ -43,6 +43,12 @@ func ListMountPoint() ([][3]string, error) {
 		fs_spec := fields[0]
 		fs_file := fields[1]
 		fs_vfstype := fields[2]
+		fs_mntops := strings.Split(fields[3], ",")
+		// default value
+		fs_rw := "rw"
+		if len(fs_mntops) > 0 {
+			fs_rw = fs_mntops[0]
+		}
 
 		if _, exist := FSSPEC_IGNORE[fs_spec]; exist {
 			continue
@@ -73,10 +79,10 @@ func ListMountPoint() ([][3]string, error) {
 				}
 			}
 			if !deviceFound {
-				ret = append(ret, [3]string{fs_spec, fs_file, fs_vfstype})
+				ret = append(ret, [4]string{fs_spec, fs_file, fs_vfstype, fs_rw})
 			}
 		} else {
-			ret = append(ret, [3]string{fs_spec, fs_file, fs_vfstype})
+			ret = append(ret, [4]string{fs_spec, fs_file, fs_vfstype, fs_rw})
 		}
 	}
 	return ret, nil

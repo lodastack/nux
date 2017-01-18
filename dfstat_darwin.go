@@ -5,8 +5,8 @@ import (
 )
 
 // return: [][$fs_spec, $fs_file, $fs_vfstype]
-func ListMountPoint() ([][3]string, error) {
-	return [][3]string{}, nil
+func ListMountPoint() ([][4]string, error) {
+	return [][4]string{}, nil
 }
 
 func BuildDeviceUsage(_fsSpec, _fsFile, _fsVfstype string) (*DeviceUsage, error) {
