@@ -11,7 +11,6 @@ import (
 	"path"
 	"strconv"
 	"strings"
-	"time"
 )
 
 type Proc struct {
@@ -21,7 +20,6 @@ type Proc struct {
 	Mem      uint64
 	TotalCpu float64
 	Cpu      float64
-	jiffy    uint64
 
 	RBytes   uint64
 	WBytes   uint64
