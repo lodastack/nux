@@ -15,12 +15,13 @@ import (
 )
 
 type Proc struct {
-	Pid   int
-	Name  string
-	Exe   string
-	Mem   uint64
-	Cpu   float64
-	jiffy uint64
+	Pid      int
+	Name     string
+	Exe      string
+	Mem      uint64
+	TotalCpu float64
+	Cpu      float64
+	jiffy    uint64
 
 	RBytes   uint64
 	WBytes   uint64
@@ -74,29 +75,12 @@ func Procs(cmdlines map[string]string) (ps []*Proc, err error) {
 		ps = append(ps, &p)
 	}
 
-	//tcpInodes := readTcp()
-	for _, p := range ps {
-		//p.TcpEstab = tcpEstablishCount(tcpInodes, p.Pid)
-		p.RBytes, p.WBytes = readIO(p.Pid)
-		p.FdCount = readProcFd(p.Pid)
-	}
+	jiffyTotal := readJiffy()
 
-	jiffyBefore := readJiffy()
-	for _, p := range ps {
-		p.jiffy = readProcJiffy(p.Pid)
-	}
-	time.Sleep(time.Second)
-	jiffyAfter := readJiffy()
-	if jiffyBefore == jiffyAfter {
-		return
-	}
 	for _, p := range ps {
 		jiffy := readProcJiffy(p.Pid)
-		if jiffy <= p.jiffy {
-			p.Cpu = 0
-		} else {
-			p.Cpu = float64(jiffy-p.jiffy) / float64(jiffyAfter-jiffyBefore)
-		}
+		p.Cpu = float64(jiffy)
+		p.TotalCpu = float64(jiffyTotal)
 	}
 	return
 }
