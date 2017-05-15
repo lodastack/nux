@@ -79,9 +79,6 @@ func TestMetrics(t *testing.T) {
 	fmt.Println("=========IpExt:=======")
 	fmt.Println(Netstat("IpExt"))
 
-	fmt.Println("=========ListeningPorts:=======")
-	fmt.Println(ListeningPorts())
-
 	fmt.Println("=========Procs:=======")
 	if L, err := Procs(map[string]string{}); err != nil {
 		fmt.Println("error:", err)
