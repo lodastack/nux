@@ -13,7 +13,7 @@ func ListMountPoint() ([][4]string, error) {
 	ret := make([][4]string, len(partitions))
 	for i, p := range partitions {
 		// CD driver in windows
-		if p.Fstype == "CDFS" {
+		if p.Fstype == "CDFS" || p.Fstype == "UDF" {
 			continue
 		}
 		ret[i][0] = p.Device
