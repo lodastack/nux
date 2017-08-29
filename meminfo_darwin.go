@@ -3,11 +3,12 @@ package nux
 import (
 	"bufio"
 	"bytes"
-	"github.com/toolkits/file"
 	"io"
 	"io/ioutil"
 	"strconv"
 	"strings"
+
+	"github.com/toolkits/file"
 )
 
 func MemInfo() (*Mem, error) {
@@ -17,7 +18,7 @@ func MemInfo() (*Mem, error) {
 	}
 
 	memInfo := &Mem{}
-
+	memInfo.MemAvaSupport = false
 	reader := bufio.NewReader(bytes.NewBuffer(contents))
 
 	for {
@@ -47,6 +48,9 @@ func MemInfo() (*Mem, error) {
 				memInfo.MemTotal = val / Multi
 			case "MemFree:":
 				memInfo.MemFree = val / Multi
+			case "MemAvailable:":
+				memInfo.MemAvaSupport = true
+				memInfo.MemAvailable = val / Multi
 			case "SwapTotal:":
 				memInfo.SwapTotal = val / Multi
 			case "SwapFree:":

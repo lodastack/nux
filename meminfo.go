@@ -12,6 +12,11 @@ type Mem struct {
 	SwapTotal uint64
 	SwapUsed  uint64
 	SwapFree  uint64
+	// MemAvailable is in /proc/meminfo (kernel 3.14+)
+	// https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=34e431b0ae398fc54ea69ff85ec700722c9da773
+	// https://www.kernel.org/doc/Documentation/filesystems/proc.txt
+	MemAvailable  uint64
+	MemAvaSupport bool
 }
 
 func (this *Mem) String() string {
@@ -21,10 +26,11 @@ func (this *Mem) String() string {
 var Multi uint64 = 1024
 
 var WANT = map[string]struct{}{
-	"Buffers:":   {},
-	"Cached:":    {},
-	"MemTotal:":  {},
-	"MemFree:":   {},
-	"SwapTotal:": {},
-	"SwapFree:":  {},
+	"Buffers:":      {},
+	"Cached:":       {},
+	"MemTotal:":     {},
+	"MemFree:":      {},
+	"SwapTotal:":    {},
+	"SwapFree:":     {},
+	"MemAvailable:": {},
 }
