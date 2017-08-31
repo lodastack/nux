@@ -4,12 +4,13 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"github.com/toolkits/file"
 	"io"
 	"io/ioutil"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/toolkits/file"
 )
 
 func ListDiskStats() ([]*DiskStats, error) {
@@ -110,4 +111,8 @@ func ListDiskStats() ([]*DiskStats, error) {
 		ret = append(ret, item)
 	}
 	return ret, nil
+}
+
+func DiskHealth() (*DiskHealthStats, error) {
+	return nil, nil
 }

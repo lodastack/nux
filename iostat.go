@@ -26,3 +26,22 @@ type DiskStats struct {
 func (this *DiskStats) String() string {
 	return fmt.Sprintf("<Device:%s, Major:%d, Minor:%d, ReadRequests:%d...>", this.Device, this.Major, this.Minor, this.ReadRequests)
 }
+
+type DiskHealthStats struct {
+	Disks []PDStats
+	Raids []RaidStats
+}
+
+type PDStats struct {
+	DeviceID      string
+	MediaError    int64
+	OtherError    int64
+	Temperature   int64
+	FirmwareState string
+}
+
+type RaidStats struct {
+	Adapter  string
+	Critical int64
+	Failed   int64
+}
