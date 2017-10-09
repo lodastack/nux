@@ -30,9 +30,9 @@ func BuildDeviceUsage(_fsSpec, _fsFile, _fsVfstype string) (*DeviceUsage, error)
 		return nil, err
 	}
 	ret := &DeviceUsage{FsSpec: _fsSpec, FsFile: _fsFile, FsVfstype: _fsVfstype}
-	ret.BlocksAll = usageStat.Total
-	ret.BlocksUsed = usageStat.Used
-	ret.BlocksFree = usageStat.Free
+	ret.BlocksAll = usageStat.Total / Multi / Multi
+	ret.BlocksUsed = usageStat.Used / Multi / Multi
+	ret.BlocksFree = usageStat.Free / Multi / Multi
 	ret.BlocksUsedPercent = usageStat.UsedPercent
 	ret.BlocksFreePercent = 100 - usageStat.UsedPercent
 	return ret, nil
