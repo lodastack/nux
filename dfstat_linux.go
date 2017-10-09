@@ -99,9 +99,9 @@ func BuildDeviceUsage(_fsSpec, _fsFile, _fsVfstype string) (*DeviceUsage, error)
 
 	// blocks
 	used := fs.Blocks - fs.Bfree
-	ret.BlocksAll = uint64(fs.Frsize) * fs.Blocks
-	ret.BlocksUsed = uint64(fs.Frsize) * used
-	ret.BlocksFree = uint64(fs.Frsize) * fs.Bavail
+	ret.BlocksAll = uint64(fs.Frsize) * fs.Blocks / Multi / Multi
+	ret.BlocksUsed = uint64(fs.Frsize) * used / Multi / Multi
+	ret.BlocksFree = uint64(fs.Frsize) * fs.Bavail / Multi / Multi
 	if fs.Blocks == 0 {
 		ret.BlocksUsedPercent = 0.0
 	} else {
