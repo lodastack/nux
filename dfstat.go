@@ -26,6 +26,7 @@ var FSFILE_PREFIX_IGNORE = []string{
 	"/misc",
 	"/proc",
 	"/lib",
+	"/run/docker/netns",
 }
 
 func IgnoreFsFile(fs_file string) bool {
