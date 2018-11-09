@@ -4,12 +4,13 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"github.com/toolkits/file"
 	"io"
 	"io/ioutil"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/toolkits/file"
 )
 
 func ListDiskStats() ([]*DiskStats, error) {
@@ -47,7 +48,13 @@ func ListDiskStats() ([]*DiskStats, error) {
 
 		size := len(fields)
 		// kernel version too low
-		if size != 14 {
+		// diskstats file changed from 4.18+
+		// See https://www.kernel.org/doc/Documentation/iostats.txt
+		// Field 12 -- # of discards completed
+		// Field 13 -- # of discards merged
+		// Field 14 -- # of sectors discarded
+		// Field 15 -- # of milliseconds spent discarding s
+		if size < 14 {
 			continue
 		}
 
