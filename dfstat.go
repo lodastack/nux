@@ -17,6 +17,7 @@ var FSTYPE_IGNORE = map[string]struct{}{
 	"devtmpfs":   {},
 	"rpc_pipefs": {},
 	"rootfs":     {},
+	"overlay":    {},
 }
 
 var FSFILE_PREFIX_IGNORE = []string{
